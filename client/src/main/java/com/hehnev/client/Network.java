@@ -10,8 +10,8 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
 public class Network {
-    public static final String HOST = "localhost";
-    public static final int PORT = 8189;
+    public String host;
+    public int port;
 
     private SocketChannel channel;
 
@@ -33,8 +33,9 @@ public class Network {
                                 );
                             }
                         });
-                ChannelFuture future = bootstrap.connect(HOST, PORT);
-                future.channel().closeFuture().sync();
+                if (host != null && port != 0) {
+                    run(bootstrap, host, port);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
@@ -44,8 +45,21 @@ public class Network {
         t.start();
     }
 
-    public void sendMsg(String str) {
-        channel.writeAndFlush(str);
+    private void run(Bootstrap bootstrap, String host, int port) throws InterruptedException {
+        ChannelFuture future = bootstrap.connect(host, port);
+        future.channel().closeFuture().sync();
+    }
+
+
+    public void sendHostAndPort(String host, String port) {
+
+    }
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(String port) {
+        this.port = Integer.parseInt(port);
     }
     public void close() {
         channel.close();

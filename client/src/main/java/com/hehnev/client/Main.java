@@ -1,5 +1,6 @@
 package com.hehnev.client;
 
+import com.hehnev.client.controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,8 +15,8 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         Controller controller = fxmlLoader.getController();
         primaryStage.setOnCloseRequest(event -> controller.exitAction());
-        primaryStage.setTitle("Geek Chat Client");
-        primaryStage.setScene(new Scene(root, 400, 400));
+        primaryStage.setTitle("network storage");
+        primaryStage.setScene(new Scene(root, 1280, 600));
         primaryStage.show();
     }
 
